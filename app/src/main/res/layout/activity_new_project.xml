@@ -101,10 +101,10 @@
     </LinearLayout>
     <!-- The navigation drawer -->
     <HorizontalScrollView
-        android:layout_width="320dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#ff000000"
+        android:background="#ff95a2ab"
         android:id="@+id/scrollView">
 
         <LinearLayout
@@ -121,7 +121,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/instruments" />
+                android:id="@+id/instruments"
+                />
         </LinearLayout>
     </HorizontalScrollView>
 </android.support.v4.widget.DrawerLayout>
