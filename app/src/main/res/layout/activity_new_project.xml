@@ -101,7 +101,7 @@
     </LinearLayout>
     <!-- The navigation drawer -->
     <HorizontalScrollView
-        android:layout_width="240dp"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#ff95a2ab"
@@ -112,15 +112,16 @@
             android:layout_height="match_parent">
 
             <ListView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:id="@+id/instrumentGroups" />
 
-            <ListView
-                android:layout_width="0dp"
+            <GridView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
                 android:id="@+id/instruments"
                 />
         </LinearLayout>

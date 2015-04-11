@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by SAM on 10/04/2015.
@@ -23,11 +27,12 @@ public class NewProjectAcitivity extends Activity {
     DrawerLayout mDrawer;
     HorizontalScrollView drawerScrollView;
     ListView instrumentGroups;
-    ListView instruments;
+    GridView instruments;
     ListView layers;
     Button[] buttons;
     String[] groups;
-    ArrayAdapter groupAdapter, instrumentsAdapter;
+    ArrayAdapter groupAdapter;
+    ButtonAdapter instrumentsAdapter;
 
     ButtonGridListener gridListener;
 
@@ -39,7 +44,7 @@ public class NewProjectAcitivity extends Activity {
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerScrollView = (HorizontalScrollView) findViewById(R.id.scrollView);
         instrumentGroups = (ListView) findViewById(R.id.instrumentGroups);
-        instruments = (ListView) findViewById(R.id.instruments);
+        instruments = (GridView) findViewById(R.id.instruments);
         layers = (ListView) findViewById(R.id.layerList);
         buttons = new Button[9];
         //de initializat 9 butoane
@@ -56,13 +61,14 @@ public class NewProjectAcitivity extends Activity {
         buttons[6] = (Button) findViewById(R.id.button7);
         buttons[7] = (Button) findViewById(R.id.button8);
         buttons[8] = (Button) findViewById(R.id.button9);
-
-
         try {
-            groupAdapter = new ArrayAdapter(this, R.layout.instrument_groups_layout, getAssets().list("groups"));
+            String[] groups = getAssets().list("groups");
+            groupAdapter = new ArrayAdapter(this, R.layout.instrument_groups_layout, groups);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         instrumentGroups.setAdapter(groupAdapter);
 
 
@@ -73,7 +79,11 @@ public class NewProjectAcitivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
 
-                    instrumentsAdapter = new ArrayAdapter(parent.getContext(), R.layout.instrument_groups_layout, getAssets().list("groups/" + view.toString() + ""));
+                    String group = ((TextView) view).getText().toString();
+                    // getAssets().list("groups/" + group + "")
+                    String[] instrumentNames = getAssets().list("groups/" + group + "");
+                    instrumentsAdapter = new ButtonAdapter(NewProjectAcitivity.this);
+                    instrumentsAdapter.setFilesnames(instrumentNames);
                     instruments.setAdapter(instrumentsAdapter);
                 } catch (IOException e) {
                     e.printStackTrace();
