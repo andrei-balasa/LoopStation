@@ -1,7 +1,6 @@
 package andreibalasa.com.loopstation;
 
 import android.app.Activity;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -12,12 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Created by SAM on 10/04/2015.
@@ -25,12 +22,10 @@ import java.util.Arrays;
 public class NewProjectAcitivity extends Activity {
 
     DrawerLayout mDrawer;
-    HorizontalScrollView drawerScrollView;
     ListView instrumentGroups;
     GridView instruments;
     ListView layers;
     Button[] buttons;
-    String[] groups;
     ArrayAdapter groupAdapter;
     ButtonAdapter instrumentsAdapter;
 
@@ -42,7 +37,6 @@ public class NewProjectAcitivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerScrollView = (HorizontalScrollView) findViewById(R.id.scrollView);
         instrumentGroups = (ListView) findViewById(R.id.instrumentGroups);
         instruments = (GridView) findViewById(R.id.instruments);
         layers = (ListView) findViewById(R.id.layerList);
@@ -51,8 +45,6 @@ public class NewProjectAcitivity extends Activity {
         gridListener = new ButtonGridListener();
 
         buttons[0] = (Button) findViewById(R.id.button1);
-        buttons[0].setOnClickListener(gridListener);
-        //asa si la rest
         buttons[1] = (Button) findViewById(R.id.button2);
         buttons[2] = (Button) findViewById(R.id.button3);
         buttons[3] = (Button) findViewById(R.id.button4);
@@ -61,6 +53,10 @@ public class NewProjectAcitivity extends Activity {
         buttons[6] = (Button) findViewById(R.id.button7);
         buttons[7] = (Button) findViewById(R.id.button8);
         buttons[8] = (Button) findViewById(R.id.button9);
+
+        for (Button b : buttons)
+            b.setOnClickListener(gridListener);
+
         try {
             String[] groups = getAssets().list("groups");
             groupAdapter = new ArrayAdapter(this, R.layout.instrument_groups_layout, groups);
@@ -68,9 +64,7 @@ public class NewProjectAcitivity extends Activity {
             e.printStackTrace();
         }
 
-
         instrumentGroups.setAdapter(groupAdapter);
-
 
         //nu afiseaza a doua lista, stiu ca e ciudatel codu da l-am facut in mai multe moduri pt ca nu-mi dadeam seama dc nu merge
 
@@ -78,17 +72,39 @@ public class NewProjectAcitivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-
                     String group = ((TextView) view).getText().toString();
-                    // getAssets().list("groups/" + group + "")
                     String[] instrumentNames = getAssets().list("groups/" + group + "");
-                    instrumentsAdapter = new ButtonAdapter(NewProjectAcitivity.this);
-                    instrumentsAdapter.setFilesnames(instrumentNames);
-                    instruments.setAdapter(instrumentsAdapter);
+                    if (instrumentsAdapter == null) {
+                        instrumentsAdapter = new ButtonAdapter(NewProjectAcitivity.this, instrumentNames);
+                        instruments.setAdapter(instrumentsAdapter);
+                    }
+                    else
+                        instrumentsAdapter.setFilesNames(instrumentNames);
+                    instruments.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+            }
+        });
+
+        instruments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //nu merge deocamdata, s-ar putea sa fie de la faptul ca ai butoane in vieweuri
+                Log.d("TAG", "onItemClick");
+                //aici ma gandeam ca ar trb sa cante sampleu ala
+            }
+        });
+
+        instruments.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //nu merge deocamdata, s-ar putea sa fie de la faptul ca ai butoane in vieweuri
+                Log.d("TAG", "onItemLongClick");
+                //aici ar trb sa se inchida draweru si sa salveze pe ce sample ai apasat si apoi cand apesi pe un button din gridu
+                //ala de 9x9 sa se salveze sampleu pe butonu ala
+                return true;
             }
         });
 
@@ -116,7 +132,6 @@ public class NewProjectAcitivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     private class ButtonGridListener implements Button.OnClickListener {
 

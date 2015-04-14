@@ -1,26 +1,24 @@
 package andreibalasa.com.loopstation;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.TextView;
 
 /**
  * Created by SAM on 11/04/2015.
  */
 public class ButtonAdapter extends BaseAdapter {
     private Context mContext;
-    private String[] filesnames;
+    private String[] filesNames;
     LayoutInflater inflater;
 
     // Gets the context so it can be used later
-    public void setFilesnames(String[] filesnames) {
-        this.filesnames = filesnames;
+    public void setFilesNames(String[] filesNames) {
+        this.filesNames = filesNames;
+        notifyDataSetChanged();
     }
 
     public ButtonAdapter(Context c) {
@@ -28,14 +26,20 @@ public class ButtonAdapter extends BaseAdapter {
         inflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public ButtonAdapter(Context c, String[] filesNames) {
+        mContext = c;
+        inflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.filesNames = filesNames;
+    }
+
     // Total number of things contained within the adapter
     public int getCount() {
-        return filesnames.length;
+        return filesNames.length;
     }
 
     // Require for structure, not really used in my code.
     public Object getItem(int position) {
-        return null;
+        return filesNames[position];
     }
 
     // Require for structure, not really used in my code. Can
@@ -48,13 +52,12 @@ public class ButtonAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
-            convertView = inflater.inflate(R.layout.instrument_layout,null);
+            convertView = inflater.inflate(R.layout.instrument_layout, null);
         }
-        Button button = (Button) convertView.findViewById(R.id.grid_item);
-        button.setText(filesnames[position]);
+        Button button = (Button) convertView;
+        button.setText(filesNames[position]);
 
         return convertView;
-
 
     }
 }

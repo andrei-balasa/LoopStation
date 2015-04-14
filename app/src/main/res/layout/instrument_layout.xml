@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<Button
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/grid_item"
-    android:layout_gravity="center"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
+    android:layout_weight = "1"
     android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:enabled="true"
+    android:layout_gravity="center"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    </Button>
+    android:enabled="true"
+    android:singleLine="true"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textSize="20sp"/>

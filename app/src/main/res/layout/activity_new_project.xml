@@ -10,10 +10,10 @@
         android:orientation="horizontal">
 
         <ListView
+            android:id="@+id/layerList"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:id="@+id/layerList" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -26,67 +26,24 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button1"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button2"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button3"/>
 
-            </LinearLayout>
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
                 <Button
+                    android:id="@+id/button2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button4"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button5"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button6"/>
+                    android:layout_weight="1" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
                 <Button
+                    android:id="@+id/button3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button7"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button8"/>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/button9"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -96,34 +53,81 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"></LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <!-- The navigation drawer -->
-    <HorizontalScrollView
-        android:layout_width="200dp"
+
+    <LinearLayout
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#ff95a2ab"
-        android:id="@+id/scrollView">
+        android:background="#ff95a2ab">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/instrumentGroups"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
 
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/instrumentGroups" />
+        <GridView
+            android:id="@+id/instruments"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="2dp"
+            android:numColumns="2"
+            android:verticalSpacing="2dp"
+            android:visibility="gone" />
+    </LinearLayout>
 
-            <GridView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:id="@+id/instruments"
-                />
-        </LinearLayout>
-    </HorizontalScrollView>
 </android.support.v4.widget.DrawerLayout>
